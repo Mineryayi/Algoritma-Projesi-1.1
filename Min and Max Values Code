@@ -1,0 +1,119 @@
+#include <stdio.h>
+
+int main() {
+    float pro[21], cal[21];
+    float minPro, maxPro, minCal, maxCal;
+    int minProGun, maxProGun, minCalGun, maxCalGun;
+    int i;
+    
+    // Belirlenmiş hedef aralıklar
+    float proteinMin = 120.0;
+    float proteinMax = 165.0;
+    float kaloriMin = 2500.0;
+    float kaloriMax = 3000.0;
+   
+    printf("║      MINIMUM VE MAKSIMUM DEGER ANALIZI        ║\n");
+    
+    printf("\nHEDEF ARALIKLARINIZ:\n");
+    printf("Protein: %.0f - %.0f g\n", proteinMin, proteinMax);
+    printf("Kalori : %.0f - %.0f\n", kaloriMin, kaloriMax);
+    
+    // Veri girişim
+    printf("\n21 gunluk protein ve kalori verilerini giriniz:\n");
+    for(i = 0; i < 21; i++) {
+        printf("\n%d. Gun:\n", i+1);
+        printf("Protein (g): ");
+        scanf("%f", &pro[i]);
+        printf("Kalori: ");
+        scanf("%f", &cal[i]);
+    }
+    
+    // İlk değerleri başlangıç olarak atama
+    minPro = maxPro = pro[0];
+    minCal = maxCal = cal[0];
+    minProGun = maxProGun = 1;
+    minCalGun = maxCalGun = 1;
+    
+    // Min-Max bulma
+    for(i = 1; i < 21; i++) {
+        // Protein için
+        if(pro[i] < minPro) {
+            minPro = pro[i];
+            minProGun = i + 1;
+        }
+        if(pro[i] > maxPro) {
+            maxPro = pro[i];
+            maxProGun = i + 1;
+        }
+        
+        // Kalori için
+        if(cal[i] < minCal) {
+            minCal = cal[i];
+            minCalGun = i + 1;
+        }
+        if(cal[i] > maxCal) {
+            maxCal = cal[i];
+            maxCalGun = i + 1;
+        }
+    }
+    
+    // Sonuçları gösterme
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║              PROTEIN ANALIZI                  ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    
+    printf("\nEn Dusuk Protein: %.2f g (%d. gun)", minPro, minProGun);
+    if(minPro < proteinMin) {
+        printf(" ⚠️  HEDEFIN ALTINDA (%.2f g eksik)", proteinMin - minPro);
+    }
+    printf("\n");
+    
+    printf("En Yuksek Protein: %.2f g (%d. gun)", maxPro, maxProGun);
+    if(maxPro > proteinMax) {
+        printf(" ⚠️  HEDEFIN USTUNDE (+%.2f g fazla)", maxPro - proteinMax);
+    }
+    printf("\n");
+    
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║               KALORI ANALIZI                  ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    
+    printf("\nEn Dusuk Kalori: %.2f (%d. gun)", minCal, minCalGun);
+    if(minCal < kaloriMin) {
+        printf(" ⚠️  HEDEFIN ALTINDA (%.2f eksik)", kaloriMin - minCal);
+    }
+    printf("\n");
+    
+    printf("En Yuksek Kalori: %.2f (%d. gun)", maxCal, maxCalGun);
+    if(maxCal > kaloriMax) {
+        printf(" ⚠️  HEDEFIN USTUNDE (+%.2f fazla)", maxCal - kaloriMax);
+    }
+    printf("\n");
+    
+    // Hedef aralığında olan günler
+    int proteinHedefteGunler = 0;
+    int kaloriHedefteGunler = 0;
+    int herIkisiHedefteGunler = 0;
+    
+    for(i = 0; i < 21; i++) {
+        if(pro[i] >= proteinMin && pro[i] <= proteinMax) {
+            proteinHedefteGunler++;
+        }
+        if(cal[i] >= kaloriMin && cal[i] <= kaloriMax) {
+            kaloriHedefteGunler++;
+        }
+        if(pro[i] >= proteinMin && pro[i] <= proteinMax && 
+           cal[i] >= kaloriMin && cal[i] <= kaloriMax) {
+            herIkisiHedefteGunler++;
+        }
+    }
+    
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║            HEDEF ARALIGI OZETI                ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("\nProtein hedef araliginda: %d / 21 gun\n", proteinHedefteGunler);
+    printf("Kalori hedef araliginda : %d / 21 gun\n", kaloriHedefteGunler);
+    printf("Her ikisi de hedefte   : %d / 21 gun ✓\n", herIkisiHedefteGunler);
+    
+    return 0;
+}
