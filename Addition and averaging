@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main() {
+    // SİMÜLASYON: Verinin olup olmadığını kontrol eden değişken.
+    // 1: Veri var (Sanki daha önce gönderilmiş gibi)
+    // 0: Veri yok
+    int veriDurumu = 1; 
+
+    // Değişken tanımlamaları (Senin orijinal kodun)
+    float pro[21], cal[21];
+    float toplamPro = 0, toplamCal = 0;
+    float ortalamaPro, ortalamaCal;
+    int i;
+
+    // --- KONTROL MEKANİZMASI BAŞLANGICI ---
+    if (veriDurumu == 1) {
+        // VERİ VARSA ÇALIŞACAK KISIM (Senin orijinal kodun buraya taşındı)
+        
+        printf("\n╔════════════════════════════════════════════════╗\n");
+        printf("║       TOPLAM VE ORTALAMA HESAPLAMA            ║\n");
+        printf("╚════════════════════════════════════════════════╝\n");
+        
+        // Veri girişi
+        printf("\n21 gunluk protein ve kalori verilerini giriniz:\n");
+        for(i = 0; i < 21; i++) {
+            printf("\n%d. Gun:\n", i+1);
+            printf("Protein (g): ");
+            scanf("%f", &pro[i]);
+            printf("Kalori: ");
+            scanf("%f", &cal[i]);
+        }
+        
+        // Toplam hesaplama
+        for(i = 0; i < 21; i++) {
+            toplamPro += pro[i];
+            toplamCal += cal[i];
+        }
+        
+        // Ortalama hesaplama
+        ortalamaPro = toplamPro / 21;
+        ortalamaCal = toplamCal / 21;
+
+        printf("║                  SONUCLAR                     ║\n");
+        
+        printf("\nTOPLAM DEGERLER:\n");
+        printf("Toplam Protein  : %.2f g\n", toplamPro);
+        printf("Toplam Kalori   : %.2f\n", toplamCal);
+        
+        printf("\nORTALAMA DEGERLER:\n");
+        printf("Ortalama Protein: %.2f g\n", ortalamaPro);
+        printf("Ortalama Kalori : %.2f\n", ortalamaCal);
+
+    } else {
+        // VERİ YOKSA ÇALIŞACAK KISIM
+        printf("\nLutfen verileri girin.\n");
+    }
+    // --- KONTROL MEKANİZMASI BİTİŞİ ---
+    
+    return 0;
+}
