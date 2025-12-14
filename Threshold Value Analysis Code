@@ -1,0 +1,88 @@
+#include <stdio.h>
+
+int main() {
+    float pro[21], cal[21];
+    float esikPro, esikCal;
+    int i;
+    int proEsikUstu = 0, calEsikUstu = 0;
+    
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║           ESIK DEGER ANALIZI                  ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    
+    // Veri girişi
+    printf("\n21 gunluk protein ve kalori verilerini giriniz:\n");
+    for(i = 0; i < 21; i++) {
+        printf("\n%d. Gun:\n", i+1);
+        printf("Protein (g): ");
+        scanf("%f", &pro[i]);
+        printf("Kalori: ");
+        scanf("%f", &cal[i]);
+    }
+    
+    // Eşik değerleri alma
+    printf("\n\n--- ESIK DEGERLERINI BELIRLEYIN ---\n");
+    printf("Protein esik degerini giriniz (g): ");
+    scanf("%f", &esikPro);
+    printf("Kalori esik degerini giriniz: ");
+    scanf("%f", &esikCal);
+    
+    // Protein eşik üstü değerler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║        ESIK USTU PROTEIN DEGERLERI            ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("(Esik: %.2f g)\n\n", esikPro);
+    printf("Gun\tProtein (g)\tFark\n");
+    printf("---\t-----------\t----\n");
+    for(i = 0; i < 21; i++) {
+        if(pro[i] > esikPro) {
+            printf("%d\t%.2f\t\t+%.2f\n", i+1, pro[i], pro[i] - esikPro);
+            proEsikUstu++;
+        }
+    }
+    if(proEsikUstu == 0) {
+        printf("Hicbir gun esik degerini asmadi.\n");
+    } else {
+        printf("\nToplam %d gun esik degerini asti.\n", proEsikUstu);
+    }
+    
+    // Kalori eşik üstü değerler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║         ESIK USTU KALORI DEGERLERI            ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("(Esik: %.2f)\n\n", esikCal);
+    printf("Gun\tKalori\t\tFark\n");
+    printf("---\t------\t\t----\n");
+    for(i = 0; i < 21; i++) {
+        if(cal[i] > esikCal) {
+            printf("%d\t%.2f\t\t+%.2f\n", i+1, cal[i], cal[i] - esikCal);
+            calEsikUstu++;
+        }
+    }
+    if(calEsikUstu == 0) {
+        printf("Hicbir gun esik degerini asmadi.\n");
+    } else {
+        printf("\nToplam %d gun esik degerini asti.\n", calEsikUstu);
+    }
+    
+    // Her ikisini de aşan günler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║      HER IKI ESIGI DE AŞAN GUNLER            ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("Gun\tProtein (g)\tKalori\n");
+    printf("---\t-----------\t------\n");
+    int herIkisiAsan = 0;
+    for(i = 0; i < 21; i++) {
+        if(pro[i] > esikPro && cal[i] > esikCal) {
+            printf("%d\t%.2f\t\t%.2f\n", i+1, pro[i], cal[i]);
+            herIkisiAsan++;
+        }
+    }
+    if(herIkisiAsan == 0) {
+        printf("Hicbir gun her iki esigi birden asmadi.\n");
+    } else {
+        printf("\nToplam %d gun her iki esigi birden asti.\n", herIkisiAsan);
+    }
+    
+    return 0;
+}
