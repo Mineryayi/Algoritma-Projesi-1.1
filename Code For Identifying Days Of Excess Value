@@ -1,0 +1,102 @@
+#include <stdio.h>
+
+int main() {
+    float pro[21], cal[21];
+    float hedefPro, hedefCal;
+    int fazlaProSayisi = 0, fazlaCalSayisi = 0;
+    int i;
+    
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║      FAZLA DEGER GUNLERINI BELIRLEME          ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    
+    // Hedef değerleri alma
+    printf("\n--- HEDEF DEGERLERINIZI GIRINIZ ---\n");
+    printf("Gunluk hedef protein miktarini giriniz (g): ");
+    scanf("%f", &hedefPro);
+    printf("Gunluk hedef kalori miktarini giriniz: ");
+    scanf("%f", &hedefCal);
+    
+    // Veri girişi
+    printf("\n21 gunluk protein ve kalori verilerini giriniz:\n");
+    for(i = 0; i < 21; i++) {
+        printf("\n%d. Gun:\n", i+1);
+        printf("Protein (g): ");
+        scanf("%f", &pro[i]);
+        printf("Kalori: ");
+        scanf("%f", &cal[i]);
+    }
+    
+    // Proteini fazla olan günler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║       PROTEIN HEDEFINI AŞAN GUNLER            ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("(Hedef: %.2f g)\n\n", hedefPro);
+    printf("Gun\tProtein (g)\tFark\t\tDurum\n");
+    printf("---\t-----------\t----\t\t-----\n");
+    for(i = 0; i < 21; i++) {
+        if(pro[i] > hedefPro) {
+            printf("%d\t%.2f\t\t+%.2f\t\t⚠️  FAZLA\n", i+1, pro[i], pro[i] - hedefPro);
+            fazlaProSayisi++;
+        }
+    }
+    if(fazlaProSayisi == 0) {
+        printf("Hicbir gun protein hedefini asmadi. ✓\n");
+    } else {
+        printf("\nToplam %d gun protein hedefini asti.\n", fazlaProSayisi);
+    }
+    
+    // Kaloriyi fazla olan günler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║        KALORI HEDEFINI AŞAN GUNLER            ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("(Hedef: %.2f)\n\n", hedefCal);
+    printf("Gun\tKalori\t\tFark\t\tDurum\n");
+    printf("---\t------\t\t----\t\t-----\n");
+    for(i = 0; i < 21; i++) {
+        if(cal[i] > hedefCal) {
+            printf("%d\t%.2f\t\t+%.2f\t\t⚠️  FAZLA\n", i+1, cal[i], cal[i] - hedefCal);
+            fazlaCalSayisi++;
+        }
+    }
+    if(fazlaCalSayisi == 0) {
+        printf("Hicbir gun kalori hedefini asmadi. ✓\n");
+    } else {
+        printf("\nToplam %d gun kalori hedefini asti.\n", fazlaCalSayisi);
+    }
+    
+    // Her iki hedefi de aşan günler
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║       HER IKI HEDEFI DE AŞAN GUNLER          ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("Gun\tProtein (g)\tKalori\t\tDurum\n");
+    printf("---\t-----------\t------\t\t-----\n");
+    int herIkisiAsan = 0;
+    for(i = 0; i < 21; i++) {
+        if(pro[i] > hedefPro && cal[i] > hedefCal) {
+            printf("%d\t%.2f\t\t%.2f\t\t⚠️⚠️  KRITIK\n", i+1, pro[i], cal[i]);
+            herIkisiAsan++;
+        }
+    }
+    if(herIkisiAsan == 0) {
+        printf("Hicbir gun her iki hedefi birden asmadi. ✓\n");
+    } else {
+        printf("\nToplam %d gun her iki hedefi birden asti.\n", herIkisiAsan);
+    }
+    
+    // Özet
+    printf("\n\n╔════════════════════════════════════════════════╗\n");
+    printf("║                   OZET                        ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
+    printf("\nProtein hedefini aşan gun sayisi: %d / 21\n", fazlaProSayisi);
+    printf("Kalori hedefini aşan gun sayisi : %d / 21\n", fazlaCalSayisi);
+    printf("Her ikisini birden aşan gun     : %d / 21\n", herIkisiAsan);
+    
+    float proteinBasariYuzdesi = ((21.0 - fazlaProSayisi) / 21.0) * 100;
+    float kaloriBasariYuzdesi = ((21.0 - fazlaCalSayisi) / 21.0) * 100;
+    
+    printf("\nProtein hedef basari orani: %%%.1f\n", proteinBasariYuzdesi);
+    printf("Kalori hedef basari orani : %%%.1f\n", kaloriBasariYuzdesi);
+    
+    return 0;
+}
